@@ -10,6 +10,8 @@ from oauth2client.client import AccessTokenRefreshError
 def main():
   PACKAGE_NAME = sys.argv[1]
   TRACK = (sys.argv[3])
+  USER_FRACTION = (sys.argv[4])
+  STATUS = (sys.argv[5])
 
   credentials = ServiceAccountCredentials.from_json_keyfile_name(
     sys.argv[2],
@@ -30,27 +32,10 @@ def main():
 
     print("Current status: ", track_result)
     for release in track_result['releases']:
-        if 'userFraction' in release:
-            rolloutPercentage = release['userFraction']
-            if rolloutPercentage == 0:
-                print('Release not rolled out yet')
-                continue
-            elif rolloutPercentage < 0.02:
-                release['userFraction'] = 0.02                         
-            elif rolloutPercentage < 0.05:
-                release['userFraction'] = 0.05
-            elif rolloutPercentage < 0.1:
-                release['userFraction'] = 0.1
-            elif rolloutPercentage < 0.2:
-                release['userFraction'] = 0.2
-            elif rolloutPercentage < 0.5:
-                release['userFraction'] = 0.5
-            elif rolloutPercentage < 1.0:
-                del release['userFraction']
-                release['status'] = 'completed'
-            else:
-                print('Release already fully rolled out')
-                continue        
+        if USER_FRACTION is not None:
+            release['userFraction'] = USER_FRACTION
+        if STATUS:
+            release['status'] = STATUS
     if old_result != track_result:
         completed_releases = list(filter(lambda release: release['status'] == "completed", track_result['releases']))
         if len(completed_releases) == 2:
@@ -65,7 +50,7 @@ def main():
         commit_request = service.edits().commit(editId=edit_id, packageName=PACKAGE_NAME).execute()
         print('✅ Edit ', commit_request['id'], ' has been committed')    
     else:
-        print('✅ No rollout update needed, already in 100%')
+        print('✅ No update needed')
 
 
   except AccessTokenRefreshError:

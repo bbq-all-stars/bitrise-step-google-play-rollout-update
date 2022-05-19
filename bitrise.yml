@@ -9,10 +9,10 @@ app:
   - JSON_KEY_CONTENT: $JSON_KEY_CONTENT
   - TRACK: "production"
   # If you want to share this step into a StepLib
-  - BITRISE_STEP_ID: google-play-rollout-update
-  - BITRISE_STEP_VERSION: "0.0.2"
-  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/angelolloqui/bitrise-step-google-play-rollout-update.git
-  - MY_STEPLIB_REPO_FORK_GIT_URL: git@github.com:angelolloqui/bitrise-steplib.git
+  - BITRISE_STEP_ID: google-play-update-track
+  - BITRISE_STEP_VERSION: "0.0.1"
+  - BITRISE_STEP_GIT_CLONE_URL: https://github.com/bbq-all-stars/bitrise-step-google-play-rollout-update.git
+  - MY_STEPLIB_REPO_FORK_GIT_URL: git@github.com:bitrise-io/bitrise-steplib.git
 
 workflows:
   test:

@@ -15,6 +15,6 @@ fi
 pipenv install google-api-python-client
 pipenv install oauth2client
 
-pipenv run python "${SCRIPT_DIR}/rollout_update.py" "${package_name}" "${SCRIPT_DIR}/credentials.json" "${track}"
+pipenv run python "${SCRIPT_DIR}/rollout_update.py" "${package_name}" "${SCRIPT_DIR}/credentials.json" "${track}" "${userFraction}" "${status}"
 
 rm "${SCRIPT_DIR}/credentials.json"
